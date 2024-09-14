@@ -1,0 +1,62 @@
+import React, { useState, useEffect, useCallback } from "react";
+import type { AppProps } from "next/app";
+import Preloader from "../components/preloader";
+import { I18nextProvider } from "react-i18next";
+import i18n from "../i18n";
+import MusicWidget from "../components/MusicWidget";
+import "../styles/globals.css";
+
+function MyApp({ Component, pageProps }: AppProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasClicked, setHasClicked] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleFirstClick = useCallback(() => {
+    if (!hasClicked) {
+      setHasClicked(true);
+      // Remove the event listener after the first click
+      document.removeEventListener("click", handleFirstClick);
+    }
+  }, [hasClicked]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      document.addEventListener("click", handleFirstClick);
+    }
+    return () => {
+      document.removeEventListener("click", handleFirstClick);
+    };
+  }, [isLoading, handleFirstClick]);
+
+  return (
+    <>
+      <Preloader isLoading={isLoading} />
+      {!isLoading && (
+        <I18nextProvider i18n={i18n}>
+          <div style={{ cursor: hasClicked ? "default" : "pointer" }}>
+            <Component {...pageProps} />
+            <div
+              style={{
+                position: "fixed",
+                left: "200px",
+                bottom: "20px",
+                zIndex: 1000,
+              }}
+            >
+              <MusicWidget hasClicked={hasClicked} />
+            </div>
+          </div>
+        </I18nextProvider>
+      )}
+    </>
+  );
+}
+
+export default MyApp;

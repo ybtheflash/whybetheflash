@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors */
+  --background: white;
+  --text-primary: black;
+  --text-secondary: #666;
+
+  /* Additional colors */
+  --primary: #1db858;
+  --secondary: #2ecc71;
+  --accent: #e74c3c;
+  --neutral: #95a5a6;
+
+  /* Shades of gray */
+  --gray-100: #f7fafc;
+  --gray-200: #edf2f7;
+  --gray-300: #e2e8f0;
+  --gray-400: #cbd5e0;
+  --gray-500: #a0aec0;
+  --gray-600: #718096;
+  --gray-700: #4a5568;
+  --gray-800: #2d3748;
+  --gray-900: #1a202c;
+
+  /* Status colors */
+  --success: #27ae60;
+  --warning: #f39c12;
+  --error: #c0392b;
+  --info: #3498db;
+
+  /* Additional UI colors */
+  --border-color: #ddd;
+  --input-background: #f9f9f9;
+  --hover-background: #f5f5f5;
+  --active-background: #e6e6e6;
+
+  /* Dark mode colors (you can toggle these when dark mode is active) */
+  --dark-background: #1a1a1a;
+  --dark-text-primary: #ffffff;
+  --dark-text-secondary: #b3b3b3;
+}
+
+.dark {
+  --background: #17c0a4;
+  --text-primary: white;
+  --text-secondary: #a0aec0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+}

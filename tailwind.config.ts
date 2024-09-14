@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class', // Enable dark mode variant
   theme: {
     extend: {
       backgroundImage: {
@@ -13,8 +14,30 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        // Add custom colors if needed
+      },
+      backdropFilter: {
+        'none': 'none',
+        'blur': 'blur(20px)',
+      },
+      animation: {
+        // Add custom animations if needed
+      },
+      keyframes: {
+        // Add custom keyframes if needed
+      },
     },
   },
-  plugins: [],
+  variants: {
+    extend: {
+      backdropFilter: ['responsive'],
+    },
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    // Add any other plugins you might need
+  ],
 };
+
 export default config;
