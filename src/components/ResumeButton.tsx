@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { FaDownload } from "react-icons/fa";
 
-const ResumeButton = ({ href }) => {
+interface ResumeButtonProps {
+  href: string;
+}
+
+const ResumeButton: React.FC<ResumeButtonProps> = ({ href }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const buttonStyle = {
+  const buttonStyle: CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     gap: "8px",
@@ -21,7 +25,7 @@ const ResumeButton = ({ href }) => {
     transition: "background-color 0.3s, color 0.3s",
   };
 
-  const borderStyle = {
+  const borderStyle: CSSProperties = {
     position: "absolute",
     top: 0,
     left: 0,
