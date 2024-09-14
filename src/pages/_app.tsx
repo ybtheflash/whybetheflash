@@ -11,14 +11,28 @@ import { Analytics } from "@vercel/analytics/react";
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasClicked, setHasClicked] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
+    const video = document.createElement("video");
+    video.src = "/videos/hero-bg.mp4"; // Update this path to match your video's location
+    video.load();
+
+    video.onloadeddata = () => {
+      setIsVideoLoaded(true);
+    };
+
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      if (isVideoLoaded) {
+        setIsLoading(false);
+      }
     }, 3000);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearTimeout(timer);
+      video.onloadeddata = null;
+    };
+  }, [isVideoLoaded]);
 
   const handleFirstClick = useCallback(() => {
     if (!hasClicked) {
@@ -60,6 +74,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </div>
         </I18nextProvider>
       )}
+      <Analytics />
     </>
   );
 }
