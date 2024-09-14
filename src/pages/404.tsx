@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import sparkAnimation from "../../public/lottie/spark.json";
 
-const Custom404 = () => {
+const Custom404: React.FC = () => {
   const router = useRouter();
   const [showText, setShowText] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -14,20 +14,23 @@ const Custom404 = () => {
     const animationCycle = () => {
       if (lottieRef.current) {
         lottieRef.current.play();
-        setTimeout(() => {
-          setShowText(true);
+        const duration = lottieRef.current.getDuration(false);
+        if (duration !== undefined) {
           setTimeout(() => {
-            setShowText(false);
-            setTimeout(animationCycle, 100);
-          }, 2000);
-        }, lottieRef.current.getDuration(false) * 1000);
+            setShowText(true);
+            setTimeout(() => {
+              setShowText(false);
+              setTimeout(animationCycle, 100);
+            }, 2000);
+          }, duration * 1000);
+        }
       }
     };
 
     animationCycle();
   }, []);
 
-  const buttonStyle = {
+  const buttonStyle: React.CSSProperties = {
     marginTop: "40px",
     padding: "10px 20px",
     fontSize: "1.2rem",
@@ -35,21 +38,21 @@ const Custom404 = () => {
     backgroundColor: isHovered ? "black" : "white",
     border: "none",
     textDecoration: "none",
-    position: "relative" as const,
+    position: "relative",
     overflow: "hidden",
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s, color 0.3s",
   };
 
-  const borderStyle = {
-    position: "absolute" as const,
+  const borderStyle: React.CSSProperties = {
+    position: "absolute",
     top: 0,
     left: 0,
     width: "100%",
     height: "100%",
     border: `2px solid ${isHovered ? "white" : "black"}`,
-    boxSizing: "border-box" as const,
+    boxSizing: "border-box",
     borderRadius: "5px",
     animation: `borderFlow ${isHovered ? "0.5s" : "1s"} linear infinite`,
   };
@@ -98,7 +101,7 @@ const Custom404 = () => {
         style={buttonStyle}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => router.back()} // Navigate back to the previous page
+        onClick={() => router.back()}
       >
         Go Back
         <span style={borderStyle}></span>
