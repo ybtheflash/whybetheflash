@@ -6,6 +6,7 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "../i18n";
 import MusicWidget from "../components/MusicWidget";
 import "../styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(true);
