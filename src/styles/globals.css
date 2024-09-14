@@ -53,3 +53,29 @@ body {
   background-color: var(--background);
   color: var(--text-primary);
 }
+
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-border {
+  animation: rotateBorder 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.group:hover .rotate-border {
+  animation: rotateBorder 2s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}

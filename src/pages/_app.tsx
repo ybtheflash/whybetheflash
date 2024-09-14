@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import Preloader from "../components/preloader";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../i18n";
@@ -37,6 +38,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <link rel="icon" href="/images/favicon.png" type="image/png" />
+      </Head>
       <Preloader isLoading={isLoading} />
       {!isLoading && (
         <I18nextProvider i18n={i18n}>

@@ -1,6 +1,7 @@
 // src/components/HeroContent.tsx
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 
 interface HeroContentProps {
   isDarkMode: boolean;
@@ -101,11 +102,47 @@ const useLanguageRotation = () => {
 
 const HeroContent: React.FC<HeroContentProps> = ({ isDarkMode }) => {
   const { currentLang, isFluttering } = useLanguageRotation();
+  const [shouldBounce, setShouldBounce] = useState(false);
+
+  useEffect(() => {
+    const bounceInterval = setInterval(() => {
+      setShouldBounce(true);
+      setTimeout(() => setShouldBounce(false), 1500);
+    }, 3000);
+
+    return () => clearInterval(bounceInterval);
+  }, []);
+
+  const bounceVariants = {
+    bounce: {
+      y: [0, -10, 0, -5, 0],
+      opacity: [0.3, 1, 1, 1, 0.3],
+      transition: {
+        duration: 1.5,
+        times: [0, 0.2, 0.4, 0.6, 1],
+        ease: "easeInOut",
+      },
+    },
+    idle: {
+      y: 0,
+      opacity: 0.3,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById("bio");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div
-      className={`w-full h-screen flex flex-col justify-center items-end pr-16 ${
-        isDarkMode ? "text-black" : "text-white"
+      className={`w-full h-screen flex flex-col justify-center items-end px-6 sm:px-10 md:px-16 lg:px-20 ${
+        isDarkMode ? "text-white" : "text-white"
       }`}
     >
       <div className="text-right">
@@ -116,13 +153,33 @@ const HeroContent: React.FC<HeroContentProps> = ({ isDarkMode }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: isFluttering ? 0.1 : 0.2 }}
-            className="text-5xl font-bold mb-2"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold mb-2"
           >
             {currentLang.text}
           </motion.h2>
         </AnimatePresence>
-        <h1 className="text-8xl font-extrabold">Yubaraj Biswas</h1>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold">
+          Yubaraj Biswas
+        </h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="text-base sm:text-lg md:text-xl lg:text-2xl font-light italic mt-2"
+        >
+          "Love Above All Else."
+        </motion.p>
       </div>
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        variants={bounceVariants}
+        animate={shouldBounce ? "bounce" : "idle"}
+        onClick={scrollToNextSection}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <FaChevronDown className="text-white text-2xl" />
+      </motion.div>
     </div>
   );
 };

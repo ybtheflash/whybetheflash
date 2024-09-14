@@ -83,12 +83,28 @@ const Home: NextPage = () => {
         <section id="hero-runner" className="w-full">
           <HeroRunner isDarkMode={isDarkMode} />
         </section>
-        <section
-          id="bio"
-          className="min-h-screen flex items-center justify-center"
-        >
+        <section id="bio" className="w-full flex items-center justify-center">
           <AboutMe isDarkMode={isDarkMode} />
         </section>
+
+        {/* Under Construction Message */}
+        <section
+          className={`py-16 flex flex-col items-center justify-center text-center px-4 ${
+            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
+          }`}
+        >
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Currently Under Construction
+            </h2>
+            <p className="text-lg md:text-xl">
+              We're working hard to bring you an amazing experience. Please
+              don't judge the unfinished sections above. Check back soon for
+              updates!
+            </p>
+          </div>
+        </section>
+
         {/* <section
           id="what-i-do"
           className="min-h-screen flex items-center justify-center"

@@ -1,5 +1,3 @@
-// src/components/NavScroll.tsx
-
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -26,19 +24,19 @@ interface NavScrollProps {
 }
 
 const navItems: NavItem[] = [
-  { id: "home", icon: <FaHome />, label: "Home" },
-  { id: "about", icon: <FaUser />, label: "About" },
-  { id: "skills", icon: <FaCode />, label: "Skills" },
-  { id: "projects", icon: <FaLaptopCode />, label: "Projects" },
-  { id: "interests", icon: <FaHeart />, label: "Interests" },
-  { id: "contact", icon: <FaRocket />, label: "Contact" },
+  { id: "hero", icon: <FaHome />, label: "Home" },
+  { id: "bio", icon: <FaUser />, label: "About" },
+  // { id: "skills", icon: <FaCode />, label: "Skills" },
+  // { id: "projects", icon: <FaLaptopCode />, label: "Projects" },
+  // { id: "interests", icon: <FaHeart />, label: "Interests" },
+  // { id: "contact", icon: <FaRocket />, label: "Contact" },
 ];
 
 const NavScroll: React.FC<NavScrollProps> = ({
   isDarkMode,
   toggleDarkMode,
 }) => {
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("hero");
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [internalDarkMode, setInternalDarkMode] = useState(isDarkMode);
@@ -87,11 +85,15 @@ const NavScroll: React.FC<NavScrollProps> = ({
 
   return (
     <>
-      <nav className="fixed left-8 top-1/2 transform -translate-y-1/2 z-50">
-        <div className="flex flex-col items-center space-y-6 p-4 rounded-full bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg dark:bg-gray-800 dark:bg-opacity-20">
+      <nav
+        className={`fixed left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-50 transition-opacity duration-300 ${
+          activeSection === "hero" ? "opacity-0 md:opacity-100" : "opacity-100"
+        }`}
+      >
+        <div className="flex flex-col items-center space-y-4 p-3 rounded-full bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg dark:bg-gray-800 dark:bg-opacity-20 shadow-lg">
           <button
             onClick={handleToggle}
-            className="w-12 h-12 rounded-full overflow-hidden focus:outline-none"
+            className="w-10 h-10 rounded-full overflow-hidden focus:outline-none"
             aria-label="Toggle dark mode"
           >
             <Lottie
@@ -106,17 +108,23 @@ const NavScroll: React.FC<NavScrollProps> = ({
             <motion.a
               key={item.id}
               href={`#${item.id}`}
-              className={`relative flex items-center justify-center w-12 h-12 rounded-full text-gray-600 dark:text-gray-300 text-xl transition-all duration-300 ${
+              className={`relative flex items-center justify-center w-10 h-10 rounded-full text-lg transition-all duration-300 ${
                 activeSection === item.id
-                  ? "bg-white bg-opacity-30 dark:bg-gray-700 dark:bg-opacity-30"
-                  : "hover:bg-white hover:bg-opacity-10 dark:hover:bg-gray-700 dark:hover:bg-opacity-10"
+                  ? "bg-white bg-opacity-70 text-gray-800"
+                  : "text-white hover:bg-white hover:bg-opacity-30 hover:text-gray-800"
               }`}
               whileTap={{ scale: 0.95 }}
             >
-              {item.icon}
+              <span
+                className={`z-10 ${
+                  activeSection === item.id ? "text-gray-800" : ""
+                }`}
+              >
+                {item.icon}
+              </span>
               {activeSection === item.id && (
                 <motion.div
-                  className="absolute inset-0 rounded-full bg-white dark:bg-gray-400 opacity-20"
+                  className="absolute inset-0 rounded-full bg-white opacity-70"
                   layoutId="glow"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />

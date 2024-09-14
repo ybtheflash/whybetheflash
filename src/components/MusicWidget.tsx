@@ -12,7 +12,7 @@ interface TrackMetadata {
   Artist: string;
 }
 
-//TOTAL TRACK COUNTS
+//TOTAL TRACK COUNTS YES
 const TOTAL_TRACKS = 3;
 
 const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
@@ -28,6 +28,7 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [forceExpand, setForceExpand] = useState(false);
   const [useDarkVisualization, setUseDarkVisualization] = useState(false);
   const [isFadingIn, setIsFadingIn] = useState(false);
 
@@ -224,6 +225,11 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
   useEffect(() => {
     loadTrack(currentTrack);
     getAccentColor(currentTrack);
+
+    if (lottieAnimationRef.current) {
+      lottieAnimationRef.current.destroy();
+      lottieAnimationRef.current = null;
+    }
   }, [currentTrack, loadTrack, getAccentColor]);
 
   useEffect(() => {
@@ -234,6 +240,14 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
       if (!isSeeking) {
         const calculatedProgress = (audio.currentTime / audio.duration) * 100;
         setProgress(isNaN(calculatedProgress) ? 0 : calculatedProgress);
+
+        // Check if we're in the last second of the track
+        if (audio.duration - audio.currentTime <= 1) {
+          setForceExpand(true);
+          setTimeout(() => {
+            setForceExpand(false);
+          }, 2500);
+        }
       }
     };
 
@@ -262,7 +276,9 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
     };
 
     document.addEventListener("mousemove", handleMouseMove);
-    setTimeout(() => setIsMinimized(true), 3000);
+    if (!forceExpand) {
+      setTimeout(() => setIsMinimized(true), 3000);
+    }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
@@ -304,7 +320,7 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
     <div
       ref={widgetRef}
       className={`${styles["music-widget"]} ${
-        isMinimized ? styles["minimized"] : ""
+        isMinimized && !forceExpand ? styles["minimized"] : ""
       }`}
       style={{ "--accent-color": accentColor } as React.CSSProperties}
     >
@@ -314,7 +330,7 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
         alt="Album Art"
       />
       <div ref={lottieRef} className={styles["lottie-animation"]}></div>
-      {!isMinimized && (
+      {(!isMinimized || forceExpand) && (
         <div className={styles["content"]}>
           <div className={styles["info"]}>
             <p className={styles["song-title"]}>{trackInfo.Name}</p>
@@ -387,7 +403,7 @@ const MusicWidget: React.FC<MusicWidgetProps> = ({ hasClicked }) => {
           </div>
         </div>
       )}
-      {isMinimized && (
+      {isMinimized && !forceExpand && (
         <>
           <div className={styles["mini-progress"]}>
             <div

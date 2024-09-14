@@ -11,8 +11,14 @@ import {
   FaCodepen,
   FaDiscord,
   FaTimes,
+  FaTwitch,
+  FaYoutube,
+  FaEnvelope,
+  FaCoffee,
 } from "react-icons/fa";
+import { SiPaytm } from "react-icons/si";
 import Link from "next/link";
+import ResumeButton from "./ResumeButton";
 
 interface AboutMeProps {
   isDarkMode: boolean;
@@ -33,17 +39,29 @@ const cards: Card[] = [
     content: (
       <div>
         <p>
-          Hi, I'm Yubaraj Biswas, a passionate web developer with a keen
-          interest in creating innovative and user-friendly web applications. I
-          love exploring new technologies and pushing the boundaries of what's
-          possible on the web.
+          Hi, I'm Yubaraj Biswas, a passionate web developer with a strong
+          proficiency in Database Management Systems (DBMS) and web development.
+          I'm skilled in all stages of advanced web development, including
+          design, installation, testing, and maintenance of websites. I possess
+          a diverse and versatile skill set, with the ability to efficiently
+          self-manage during independent projects while also excelling in
+          collaborative team environments.
         </p>
         <br></br>
-        <h4 className="font-bold">University Name</h4>
-        <p>Bachelor of Technology in Computer Science</p>
-        <p>Expected Graduation: 2025</p>
-        <h4 className="font-bold mt-4">High School Name</h4>
-        <p>Graduated: 2021</p>
+        <h4 className="font-bold">
+          B. P. Poddar Institute of Management and Technology, Kolkata
+        </h4>
+        <p>Bachelor of Technology in Computer Science & Engineering</p>
+        <p>September 2021 - June 2025</p>
+        <h4 className="font-bold mt-4">Central Model School Barrackpore</h4>
+        <p>Higher Secondary (P.C.M)</p>
+        <p>June 2019 - July 2021 | 76.4%</p>
+        <h4 className="font-bold mt-4">St. Xavier's Institution, Kolkata</h4>
+        <p>Secondary</p>
+        <p>April 2008 - March 2018 | 79.4%</p>
+        <div className="mt-6">
+          <ResumeButton href="https://drive.google.com/file/d/1YsDE0NNwUGGxpAA6ALKKaSdq_5yjoYtf/view?usp=sharing" />
+        </div>
       </div>
     ),
   },
@@ -57,12 +75,38 @@ const cards: Card[] = [
           I've worked on various exciting projects. Here are a few highlights:
         </p>
         <ul className="list-disc list-inside mt-2">
-          <li>Project 1: Brief description</li>
-          <li>Project 2: Brief description</li>
-          <li>Project 3: Brief description</li>
+          <li>
+            PLUXIE: A chatbot with text and text-to-speech capabilities using
+            LLM (Python, RASA, Ilama3 LLM)
+          </li>
+          <li>
+            QWIK2DO: Task management app (Next.js, Firebase, Firestore) -{" "}
+            <a
+              href="https://qwik2do.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://qwik2do.vercel.app
+            </a>
+          </li>
+          <li>
+            YOUPI: Multi-platform UPI QR code generator app (React Native, Expo)
+          </li>
+          <li>PLAYPAL: Disc Library Management System (PHP)</li>
+          <li>
+            ENGLISH LEARNERS: Full-stack blog website with user accounts system
+            (PHP, MariaDB) -{" "}
+            <a
+              href="https://myenglishlearners.in"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://myenglishlearners.in
+            </a>
+          </li>
         </ul>
         <Link
-          href="/projects"
+          href="https://github.com/ybtheflash"
           className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
         >
           View All Projects
@@ -75,21 +119,73 @@ const cards: Card[] = [
     title: "Socials",
     icon: <FaShareAlt />,
     content: (
-      <div className="flex space-x-4">
+      <div className="flex flex-wrap justify-center gap-4">
         {[
-          { icon: <FaInstagram />, url: "https://instagram.com/yourusername" },
-          { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourusername" },
-          { icon: <FaGithub />, url: "https://github.com/yourusername" },
-          { icon: <FaCodepen />, url: "https://codepen.io/yourusername" },
-          { icon: <FaDiscord />, url: "https://discord.gg/yourinvite" },
+          {
+            icon: <FaInstagram />,
+            url: "https://www.instagram.com/ybtheflash",
+            hoverColor: "#E1306C",
+          },
+          {
+            icon: <FaLinkedin />,
+            url: "https://www.linkedin.com/in/yubarajbiswas",
+            hoverColor: "#0077B5",
+          },
+          {
+            icon: <FaGithub />,
+            url: "https://github.com/ybtheflash",
+            hoverColor: "cyan",
+          },
+          {
+            icon: <FaCodepen />,
+            url: "https://codepen.io/ybtheflash",
+            hoverColor: "#FFA500",
+          },
+          {
+            icon: <FaDiscord />,
+            url: "https://discord.com/invite/qBJMrBbTU2",
+            hoverColor: "#7289DA",
+          },
+          {
+            icon: <FaTwitch />,
+            url: "https://www.twitch.tv/ybtheflash",
+            hoverColor: "#6441A4",
+          },
+          {
+            icon: <FaYoutube />,
+            url: "https://www.youtube.com/@ybtheflash",
+            hoverColor: "#FF0000",
+          },
+          {
+            icon: <FaEnvelope />,
+            url: "mailto:yubarajbiswas34@gmail.com",
+            hoverColor: "green",
+          },
+          {
+            icon: <FaCoffee />,
+            url: "https://buymeacoffee.com/ybtheflash",
+            hoverColor: "#FFDD00",
+          },
+          {
+            icon: <SiPaytm />,
+            url: "upi://pay?pa=ybtheflash@slice&pn=Yubaraj%20Biswas",
+            hoverColor: "#00BAF2",
+          },
         ].map((social, index) => (
           <motion.a
             key={index}
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-3xl text-gray-700 hover:text-blue-500"
+            className="text-3xl text-white transition-colors duration-300"
             whileHover={{ scale: 1.2, rotate: 5 }}
+            style={{ color: "white" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = social.hoverColor;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "white";
+            }}
           >
             {social.icon}
           </motion.a>
@@ -105,13 +201,13 @@ const cards: Card[] = [
       <div>
         <p>
           When I'm not coding, you can find me indulging in various hobbies. I
-          enjoy photography, playing guitar, and exploring new hiking trails.
+          love playing games, photography, videography, and traveling.
         </p>
         <Link
-          href="/hobbies"
-          className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+          href="https://playvalorant.com/"
+          className="mt-4 inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-900 transition-colors"
         >
-          Explore My Hobbies
+          My True Time-Consumer
         </Link>
       </div>
     ),
@@ -180,8 +276,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ isDarkMode }) => {
 
   return (
     <div
-      ref={containerRef}
-      className={`w-full min-h-screen ${
+      className={`about-me-container w-full ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-gray-900 text-white"
       } p-8 relative`}
     >
